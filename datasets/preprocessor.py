@@ -74,7 +74,7 @@ def _process_utterance(wav_dir, mel_dir, basename, wav_file, text, hparams):
 	if hparams.trim_silence:
 		wav = audio.trim_silence(wav, hparams)
 
-	out = wav if hparams.vocoder == 'melgan' else audio.encode_mu_law(wav, mu=512)
+	out = wav if hparams.vocoder == 'melgan' else audio.float_2_label(wav, bits=9)
 
 	# Compute the mel scale spectrogram from the wav
 	mel_spectrogram = audio.melspectrogram(wav, hparams).astype(np.float32)
